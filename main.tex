@@ -210,19 +210,19 @@ for $iteration$ in range(100):
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}
-\frametitle{Language choice}
+%% \begin{frame}
+%% \frametitle{Language choice}
 
-Everything mentioned so far was written in Java (or Scala or Clojure) with hooks for Python and R. Little support for C/C++. Why is that?
+%% Everything mentioned so far was written in Java (or Scala or Clojure) with hooks for Python and R. Little support for C/C++. Why is that?
 
-\vfill
-\uncover<2->{\renewcommand{\arraystretch}{1.0} \begin{tabular}{>{\raggedright}p{0.3\linewidth} >{\raggedright}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.3\linewidth}}
-\textcolor{darkblue}{C/C++} & \textcolor{darkblue}{JVM (Java et al)} & \textcolor{darkblue}{Python and R} \\
-\vspace{-0.2 cm} Hardest to debug. Mixes analysis with low-level concerns. & \vspace{-0.2 cm} Human-readable internals, stack traces, runtime types. & \vspace{-0.2 cm} Interactive prompt! Everything can be inspected at runtime. \\
-\uncover<3->{Fastest, raw machine access, \mbox{static bytecode,\hspace{-1 cm}} manual memory management.} & \uncover<3->{Medium speed, dynamic optimizer.} \only<3-4>{Garbage collector is fast but pauses.} \only<5>{\fbox{\begin{minipage}{\linewidth} \raggedright Garbage collector is fast but pauses. \end{minipage}}} & \uncover<3->{Slowest, though performance-critical code is external.} \\
-\uncover<4->{Used by physicists (and cybersecurity).} & \uncover<4->{Used for large-scale business analytics; suited to networking.} & \uncover<4->{Used by statisticians and data scientists for laptop-analyses.}
-\end{tabular}}
-\end{frame}
+%% \vfill
+%% \uncover<2->{\renewcommand{\arraystretch}{1.0} \begin{tabular}{>{\raggedright}p{0.3\linewidth} >{\raggedright}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.3\linewidth}}
+%% \textcolor{darkblue}{C/C++} & \textcolor{darkblue}{JVM (Java et al)} & \textcolor{darkblue}{Python and R} \\
+%% \vspace{-0.2 cm} Hardest to debug. Mixes analysis with low-level concerns. & \vspace{-0.2 cm} Human-readable internals, stack traces, runtime types. & \vspace{-0.2 cm} Interactive prompt! Everything can be inspected at runtime. \\
+%% \uncover<3->{Fastest, raw machine access, \mbox{static bytecode,\hspace{-1 cm}} manual memory management.} & \uncover<3->{Medium speed, dynamic optimizer.} \only<3-4>{Garbage collector is fast but pauses.} \only<5>{\fbox{\begin{minipage}{\linewidth} \raggedright Garbage collector is fast but pauses. \end{minipage}}} & \uncover<3->{Slowest, though performance-critical code is external.} \\
+%% \uncover<4->{Used by physicists (and cybersecurity).} & \uncover<4->{Used for large-scale business analytics; suited to networking.} & \uncover<4->{Used by statisticians and data scientists for laptop-analyses.}
+%% \end{tabular}}
+%% \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Immutable data}
