@@ -412,7 +412,7 @@ Part of a wider Big Data-in-HEP effort:
 
 \begin{lstlisting}[language=scala]
 val rdd = file_list.flatMap(files => RootTreeIterator[Tree](
-  files.map(_.xrootd_url), tree_location, libs, class_definitions))
+  files.map(_.xrootd_url), tree_location, libs, class_links))
 
 rdd.map(...).filter(...).reduce(...)
 \end{lstlisting}
