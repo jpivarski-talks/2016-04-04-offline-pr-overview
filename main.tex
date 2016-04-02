@@ -331,8 +331,8 @@ case class TwoMuon(mass_mumu: Float, px: Float, py: Float, pz: Float) {
   def pt = Math.sqrt(px*px + py*py)
 }
 
-// The brackets (equivalent of C++ template) invokes the compile-time macro
-// to generate custom filling code for TwoMuon.
+// The brackets (equivalent of C++ template) invokes generates
+// custom filling code with a compile-time macro.
 val iterator = RootTreeIterator[TwoMuon](
   List("root://cmseos.fnal.gov/TrackResonanceNtuple.root"), "twoMuon")
 
