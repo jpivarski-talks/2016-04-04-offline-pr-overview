@@ -320,6 +320,71 @@ chiSqProb.apply(53.8, 50)   // or just chiSqProb(53.8, 50)
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]{ScaROOT-Reader: iterating over ROOT TTrees}
+
+
+
+\begin{lstlisting}[language=scala]
+// Define a concrete class for data to go into:
+case class TwoMuon(mass_mumu: Float, px: Float, py: Float, pz: Float) {
+  def pt = Math.sqrt(px*px + py*py)
+}
+
+// The brackets (equivalent of C++ template) invokes the compile-time macro
+// to generate custom filling code for TwoMuon.
+val iterator = RootTreeIterator[TwoMuon](
+  List("root://cmseos.fnal.gov/TrackResonanceNtuple.root"), "twoMuon")
+
+// Do anything with this data stream in the JVM.
+while (iterator.hasNext) {
+  val datum = iterator.next()
+  println(s"mass: ${datum.mass_mumu} pt: ${datum.pt}")
+}
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Complex example: Bacon-tuple as an Avro schema}
+\tiny
+\begin{verbatim}
+{"type": "record",
+ "name": "Events",
+ "fields": [
+   {"name": "GenParticle", "type": {"type": "array", "items": {"type": "record",
+    "name": "baconhep::TGenParticle",
+    "fields": [
+      {"name": "parent", "type": "int"},
+      {"name": "pdgId", "type": "int"},
+      {"name": "status", "type": "int"},
+      {"name": "pt", "type": "float"},
+      {"name": "eta", "type": "float"},
+      {"name": "phi", "type": "float"},
+      {"name": "mass", "type": "float"},
+      {"name": "y", "type": "float"}
+    ]
+   }}},
+   {"name": "LHEWeight", "type": {"type": "array", "items": {"type": "record",
+    "name": "baconhep::TLHEWeight",
+    "fields": [
+      {"name": "id", "type": "int", "doc": "parton flavor PDG ID"},
+      {"name": "weight", "type": "float", "doc": "generator-level event weight"}
+    ]
+   }}},
+   {"name": "Electron", "type": {"type": "array", "items": {"type": "record",
+    "name": "baconhep::TElectron",
+    "fields": [
+      {"name": "pt", "type": "float", "doc": "kinematics"},
+      {"name": "eta", "type": "float", "doc": "kinematics"},
+      {"name": "phi", "type": "float", "doc": "kinematics"},
+      {"name": "scEt", "type": "float", "doc": "supercluster kinematics"},
+      {"name": "scEta", "type": "float", "doc": "supercluster kinematics"},
+      {"name": "scPhi", "type": "float", "doc": "supercluster kinematics"},
+      {"name": "ecalEnergy", "type": "float", "doc": "ECAL energy"},
+      ...
+\end{verbatim}
+\end{frame}
+
+
 
 %% \hspace{-0.83 cm} \textcolor{darkblue}{\Large Overcoming it}
 
