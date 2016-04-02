@@ -335,7 +335,7 @@ case class TwoMuon(mass: Float, px: Float, py: Float, pz: Float) {
 // The brackets (equivalent of C++ template) generates custom
 // data-filling code with a compile-time macro.
 val iterator = RootTreeIterator[TwoMuon](
-  List("root://cmseos.fnal.gov/TrackResonanceNtuple.root"), "twoMuon")
+  List("root://cmseos.fnal.gov/TwoMuonNtuple.root"), "twoMuon")
 
 // Do anything with this data stream in the JVM.
 while (iterator.hasNext) {
