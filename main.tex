@@ -354,7 +354,8 @@ while (iterator.hasNext) {
  "name": "Events",
  "fields": [
    {"name": "GenParticle", "type": {"type": "array", "items": {"type": "record",
-    "name": "baconhep::TGenParticle",
+    "name": "TGenParticle",
+    "namespace": "baconhep",
     "fields": [
       {"name": "parent", "type": "int"},
       {"name": "pdgId", "type": "int"},
@@ -367,22 +368,20 @@ while (iterator.hasNext) {
     ]
    }}},
    {"name": "LHEWeight", "type": {"type": "array", "items": {"type": "record",
-    "name": "baconhep::TLHEWeight",
+    "name": "TLHEWeight",
+    "namespace": "baconhep",
     "fields": [
       {"name": "id", "type": "int", "doc": "parton flavor PDG ID"},
       {"name": "weight", "type": "float", "doc": "generator-level event weight"}
     ]
    }}},
    {"name": "Electron", "type": {"type": "array", "items": {"type": "record",
-    "name": "baconhep::TElectron",
+    "name": "TElectron",
+    "namespace": "baconhep",
     "fields": [
       {"name": "pt", "type": "float", "doc": "kinematics"},
       {"name": "eta", "type": "float", "doc": "kinematics"},
       {"name": "phi", "type": "float", "doc": "kinematics"},
-      {"name": "scEt", "type": "float", "doc": "supercluster kinematics"},
-      {"name": "scEta", "type": "float", "doc": "supercluster kinematics"},
-      {"name": "scPhi", "type": "float", "doc": "supercluster kinematics"},
-      {"name": "ecalEnergy", "type": "float", "doc": "ECAL energy"},
       ...
 \end{verbatim}
 \end{frame}
