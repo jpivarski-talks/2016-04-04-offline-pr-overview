@@ -41,6 +41,24 @@
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   keywordstyle=\color{blue},       % keyword style
   stringstyle=\color{mymauve},     % string literal style
+  showstringspaces=false
+}
+
+\lstdefinelanguage{scala}{
+  morekeywords={abstract,case,catch,class,def,%
+    do,else,extends,false,final,finally,%
+    for,if,implicit,import,match,mixin,%
+    new,null,object,override,package,%
+    private,protected,requires,return,sealed,%
+    super,this,throw,trait,true,try,%
+    type,val,var,while,with,yield},
+  otherkeywords={=>,<-,<\%,<:,>:,\#,@},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[n]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]"""
 }
 
 \begin{document}
@@ -264,8 +282,40 @@ I have been developing adapters to connect ROOT with the JVM so that we can use 
 \end{uncoverenv}
 \end{frame}
 
-\begin{frame}{ScaROOT: \url{http://github.com/diana-hep/scaroot}}
+\begin{frame}{ScaROOT: Java interfaces with C++ implementations}
+
+\url{http://github.com/diana-hep/scaroot}
+
 \includegraphics[width=\linewidth]{wiki.png}
+\end{frame}
+
+\begin{frame}[fragile]{ScaROOT: Java interfaces with C++ implementations}
+\begin{lstlisting}[language=scala]
+import org.dianahep.scaroot.RootClass
+
+// Scala trait (abstract class with virtual methods):
+trait ChiSqProb {
+  def apply(chi2: Double, ndof: Int): Double
+}
+
+// C++ class definition that satisfies the interface:
+val chiSqProbClass = RootClass[ChiSqProb]("""
+class ChiSqProb {
+public:
+  double apply(double chi2, int ndof) {
+    return ROOT::Math::chisquared_cdf(chi2, ndof);
+  }
+};
+""")
+
+// Create an instance:
+val chiSqProb = chiSqProbClass.newInstance
+
+// And use it:
+chiSqProb.apply(53.8, 50)   // or just chiSqProb(53.8, 50)
+                            // because 'apply' is 'operator()'
+0.6689797343068249
+\end{lstlisting}
 \end{frame}
 
 
