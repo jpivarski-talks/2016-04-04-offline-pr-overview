@@ -327,7 +327,7 @@ chiSqProb.apply(53.8, 50)   // or just chiSqProb(53.8, 50)
 \vfill
 \begin{lstlisting}[language=scala]
 // Define a concrete class for data to go into:
-case class TwoMuon(mass_mumu: Float, px: Float, py: Float, pz: Float) {
+case class TwoMuon(mass: Float, px: Float, py: Float, pz: Float) {
   def pt = Math.sqrt(px*px + py*py)
 }
 
@@ -339,7 +339,7 @@ val iterator = RootTreeIterator[TwoMuon](
 // Do anything with this data stream in the JVM.
 while (iterator.hasNext) {
   val datum = iterator.next()
-  println(s"mass: ${datum.mass_mumu} pt: ${datum.pt}")
+  println(s"mass: ${datum.mass} pt: ${datum.pt}")
 }
 \end{lstlisting}
 
