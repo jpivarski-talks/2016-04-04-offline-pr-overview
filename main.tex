@@ -208,18 +208,20 @@ But perhaps we can use what's out there and let the Big Data community maintain 
 
 \begin{frame}{The C++/Java barrier}
 
-One thing most of these toolkits have in common is that they are written for the Java Virtual Machine (Java, Scala, and others).
+One thing most of these toolkits have in common is that they are written for the Java Virtual Machine.
 
 \begin{center}
 \includegraphics[width=0.5\linewidth]{three_bears.png}
 \end{center}
 
 \renewcommand{\arraystretch}{1.0} \begin{tabular}{>{\raggedright}p{0.3\linewidth} >{\raggedright}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.3\linewidth}}
-\textcolor{darkblue}{C/C++} & \textcolor{darkblue}{JVM (Java et al)} & \textcolor{darkblue}{Python and R} \\
+\textcolor{darkblue}{C/C++} & \textcolor{darkblue}{JVM (Java, Scala, etc.)} & \textcolor{darkblue}{Python and R} \\
 \vspace{-0.2 cm} Fast, but hard to debug. Mixes data analysis with low-level concerns. & \vspace{-0.2 cm} Type-aware bytecode is moderately fast, but no access to hardware. & \vspace{-0.2 cm} Not supposed to be fast: offload heavy work on compiled external packages.
 \end{tabular}
-
 \end{frame}
+
+
+
 
 
 %% \hspace{-0.83 cm} \textcolor{darkblue}{\Large Overcoming it}
