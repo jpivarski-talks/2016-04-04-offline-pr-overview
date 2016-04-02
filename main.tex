@@ -205,7 +205,25 @@ But perhaps we can use what's out there and let the Big Data community maintain 
 \end{center}
 \end{frame}
 
+\begin{frame}{The C++/Java barrier}
 
+One thing most of these toolkits have in common is that they are written for the Java Virtual Machine (Java, Scala, Clojure, etc.).
+
+
+
+\renewcommand{\arraystretch}{1.0} \begin{tabular}{>{\raggedright}p{0.3\linewidth} >{\raggedright}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.3\linewidth}}
+\textcolor{darkblue}{C/C++} & \textcolor{darkblue}{JVM (Java et al)} & \textcolor{darkblue}{Python and R} \\
+\vspace{-0.2 cm} Hardest to debug. Mixes analysis with low-level concerns. & \vspace{-0.2 cm} Human-readable internals, stack traces, runtime types. & \vspace{-0.2 cm} Interactive prompt! Everything can be inspected at runtime. \\
+Fastest, raw machine access, \mbox{static bytecode,\hspace{-1 cm}} manual memory management. & Medium speed, dynamic optimizer. Garbage collector is fast but pauses. & Slowest, though performance-critical code is external. \\
+Used by physicists, high-frequency trading, cybersecurity. & Used for large-scale business analytics; suited to networking. & Used by statisticians and data scientists for laptop-analyses.
+\end{tabular}
+
+
+
+
+\hspace{-0.83 cm} \textcolor{darkblue}{\Large Overcoming it}
+
+\end{frame}
 
 
 
