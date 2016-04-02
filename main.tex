@@ -240,7 +240,27 @@ More specifically: what languages are used for data analytics?
 \scriptsize (2013 KDNuggets poll)
 \end{frame}
 
+\begin{frame}{Overcoming the C++/Java barrier}
 
+\begin{itemize}
+\item Python and R have extension modules to call compiled code.
+\item Java has its JNI (Java Native Interface), but it is {\it much less} used. (Some activity among high-frequency traders.)
+\end{itemize}
+
+\begin{block}{My work}
+I have been developing adapters to connect ROOT with the JVM so that we can use Big Data tools in our physics analyses.
+
+\begin{itemize}
+\item Using JNI so that C++ code and Java run in the same process (no interprocess communication).
+\item ROOT TTrees: full model, should include CMSSW objects and FWLite.
+\item ROOT does file I/O to inherit XRootD abilities.
+\item ROOT functions by implementing Java interfaces in C++.
+\item Scala interface, rather than Java, to target Spark.
+\item Using Scala macros to compile in data type information for faster loading.
+\end{itemize}
+\end{block}
+
+\end{frame}
 
 
 
