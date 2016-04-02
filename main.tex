@@ -179,6 +179,20 @@ There are FIVE stream-processors maintained by Apache:
 They all do the same thing (as far as I can tell).
 \end{frame}
 
+\begin{frame}{File formats}
+
+\begin{description}
+\item[CSV, JSON, XML:] text-based for human readability; more common than you'd think.
+\item[Avro, Thrift, and Protocol buffers:] generic, row-based binary data, like JSON with a schema.
+\item[Parquet, ORC, RCFile:] generic, columnar binary data, used for SQL-style analyses.
+\item[Java serialization, Kryo, Hadoop Writables:] intermediate serialization for data in a distributed stream.
+\item[Python pickle files:] persist Python objects.
+\item[RData, RDS:] persist R objects.
+\end{description}
+\end{frame}
+
+
+
 
 
 %% \begin{frame}[fragile]
@@ -441,32 +455,6 @@ They all do the same thing (as far as I can tell).
 %% \item User interfaces: native Scala, Java, Python (through sockets), and R (through pipes).
 %% \end{itemize}
 %% \end{block}
-%% \end{frame}
-
-%% \begin{frame}{Major frameworks}
-%% \textcolor{darkblue}{Google Trends result}
-
-%% (frequency of use as a search term, in ``software'' context)
-
-%% \includegraphics[width=\linewidth]{trends.png}
-%% \end{frame}
-
-%% \begin{frame}{Generic data formats}
-
-%% It's also not uncommon to mix file formats and use a lot of text-based formats. Perhaps 70\% of what I saw was JSON.
-
-%% \begin{description}
-%% \item[CSV] table of primitives: numbers, booleans, strings (text).
-%% \item[JSON] arrays and maps of primitives (text).
-%% \item[XML] structures with an optional schema (text).
-%% \item[Apache Avro] JSON-like binary format with algebraic data types (arrays, maps, records, and unions of primitives). Similar to \textcolor{darkblue}{Thrift} and \textcolor{darkblue}{Protocol buffers}.
-%% \item[Parquet] similar to Avro, but stored column-wise for speed. Similar to \textcolor{darkblue}{ORC}, Hive's format for SQL tables.
-%% \item[Sequence files] structured container of arbitrary binary blobs intended as splitting hints for Hadoop.
-%% \item[Intermediate serialization in Hadoop and Spark] using native Java serialization, Kryo, and Hadoop Writables.
-%% \item[Python pickle files] for persisting Python objects.
-%% \end{description}
-
-%% \ldots and many application-specific formats.
 %% \end{frame}
 
 %% \begin{frame}[fragile]{Spark's functional primitives in \only<1>{C++}\only<2>{Scala} type syntax}
