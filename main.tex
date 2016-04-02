@@ -284,6 +284,7 @@ I have been developing adapters to connect ROOT with the JVM so that we can use 
 
 \begin{frame}{ScaROOT: Java interfaces with C++ implementations}
 
+\vfill
 \fbox{\url{http://github.com/diana-hep/scaroot}}
 
 \vfill
@@ -294,12 +295,12 @@ I have been developing adapters to connect ROOT with the JVM so that we can use 
 \begin{lstlisting}[language=scala]
 import org.dianahep.scaroot.RootClass
 
-// Scala trait (abstract class with virtual methods):
+// Java interface (called a ``trait'' in Scala):
 trait ChiSqProb {
   def apply(chi2: Double, ndof: Int): Double
 }
 
-// C++ class definition that satisfies the interface:
+// C++ class definition that satisfies it:
 val chiSqProbClass = RootClass[ChiSqProb]("""
 class ChiSqProb {
 public:
