@@ -247,12 +247,13 @@ More specifically: what languages are used for data analytics?
 \item Java has its JNI (Java Native Interface), but it is {\it much less} used. (Some activity among high-frequency traders.)
 \end{itemize}
 
-\begin{block}{My work}
+\begin{block}{}
+\vspace{-\baselineskip}
 I have been developing adapters to connect ROOT with the JVM so that we can use Big Data tools in our physics analyses.
 
 \begin{itemize}
 \item Using JNI so that C++ code and Java run in the same process (no interprocess communication).
-\item ROOT TTrees: full model, should include CMSSW objects and FWLite.
+\item Arbitrarily complex ROOT TTrees to include CMSSW objects.
 \item ROOT does file I/O to inherit XRootD abilities.
 \item ROOT functions by implementing Java interfaces in C++.
 \item Scala interface, rather than Java, to target Spark.
