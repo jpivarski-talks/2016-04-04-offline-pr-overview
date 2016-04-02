@@ -182,9 +182,9 @@ They all do the same thing (as far as I can tell).
 \begin{frame}{File formats}
 
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{p{0.4\linewidth} p{0.6\linewidth}}
+\hspace{-0.5 cm}\begin{tabular}{p{0.4\linewidth} p{0.6\linewidth}}
 CSV, JSON, XML\ldots & Text-based for human readability; more common than you'd think. \\
-Avro, Thrift, Protocol buffers\ldots & Generic, row-based binary data, like JSON with a schema. \\
+\raggedright Avro, Thrift, Protocol buffers\ldots & Generic, row-based binary data, like JSON with a schema. \\
 Parquet, ORC, RCFile\ldots & Generic, columnar binary data, used for SQL-style analyses. \\
 \raggedright Java serialization, Kryo, Hadoop Writables\ldots& Intermediate serialization for data in a distributed stream. \\
 Python pickle files & Persist Python objects between sessions. \\
