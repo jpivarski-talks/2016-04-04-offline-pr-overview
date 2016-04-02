@@ -21,7 +21,7 @@
 \usepackage{listings}
 \usepackage{courier}
 
-\title[2016-04-04-offline-pr-overview]{Your Presentation}
+\title[2016-04-04-offline-pr-overview]{Big Data techniques and applying them to high energy physics}
 \author{Jim Pivarski}
 \institute{Princeton University -- DIANA}
 \date{April 4, 2016}
@@ -53,162 +53,110 @@
 %  \tableofcontents
 %\end{frame}
 
-\section{Introduction}
-
-\begin{frame}{Introduction}
-
-\begin{itemize}
-  \item Your introduction goes here!
-  \item Use \texttt{itemize} to organize your main points.
-\end{itemize}
-
-\vskip 1cm
-
-\begin{block}{Examples}
-Some examples of commonly used commands and features are included, to help you get started.
-\end{block}
+\begin{frame}{}
 
 \end{frame}
 
-\section{Some \LaTeX{} Examples}
 
-\subsection{Tables and Figures}
 
-\begin{frame}{Tables and Figures}
+%% \begin{frame}[fragile]
+%% \frametitle{Map-reduce}
 
-\begin{itemize}
-\item Use \texttt{tabular} for basic tables --- see Table~\ref{tab:widgets}, for example.
-\item You can upload a figure (JPEG, PNG or PDF) using the files menu. 
-\item To include it in your document, use the \texttt{includegraphics} command (see the comment below in the source code).
-\end{itemize}
+%% Hadoop executes two sets of independent, identical processors:
+%% \begin{itemize}
+%% \item Mappers, which transform each input to a $\langle$key, value$\rangle$ pair.
+%% \item Reducers, each operates on all values that have a given key.
+%% \end{itemize}
 
-% Commands to include a figure:
-%\begin{figure}
-%\includegraphics[width=\textwidth]{your-figure's-file-name}
-%\caption{\label{fig:your-figure}Caption goes here.}
-%\end{figure}
+%% \vspace{-0.1 cm}
+%% \begin{columns}
+%% \column{0.5\linewidth}
+%% \begin{lstlisting}[frame=single]
+%% def mapper($webpage$):
+%%   for $word$ in $webpage$.split():
+%%     yield ($word$, $webpage$)
+%% $$
+%% \end{lstlisting}
+%% \column{0.58\linewidth}
+%% \begin{lstlisting}[frame=single]
+%% def reducer($word$, $webpages$):
+%%   searchIndex[$word$] = {}
+%%   for $webpage$ in $webpages$:
+%%     searchIndex[$word$].add($webpage$)
+%% \end{lstlisting}
+%% \end{columns}
 
-\begin{table}
-\centering
-\begin{tabular}{l|r}
-Item & Quantity \\\hline
-Widgets & 42 \\
-Gadgets & 13
-\end{tabular}
-\caption{\label{tab:widgets}An example table.}
-\end{table}
+%% The system groups data by key in an optimized way (independent partial sorts followed by merge, minimizing network bandwidth).
 
-\end{frame}
+%% \vspace{0.2 cm}
+%% \mbox{ } \hfill \includegraphics[width=0.6\linewidth]{mapreduce-diagram-by-ibm.png} \hfill \mbox{ }
+%% \end{frame}
 
-\subsection{Mathematics}
+%% \begin{frame}[fragile]
+%% \frametitle{Potential application in physics}
 
-\begin{frame}{Readable Mathematics}
+%% Most physics analyses apply the same function to all \mbox{events independently.\hspace{-1 cm}}
 
-Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-$$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i$$
-denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+%% However, alignment and calibration are more tightly coupled:
+%% \begin{itemize}
+%% \item Alignment residuals must be re-indexed from tracks to subdetectors.
+%% \item Calibration responses must be re-indexed from $\pi^0$s to subdetectors.
+%% \end{itemize}
 
-\end{frame}
+%% \begin{lstlisting}[frame=single]
+%% def mapper($event$):
+%%     for $track$ in $event$:
+%%         for $hit$ in $track$:
+%%             key = $hit$.subdetector()
+%%             residual = $track$.projection($hit$) - $hit$.pos()
+%%             yield (key, residual)
+%% \end{lstlisting}
 
-\begin{frame}[fragile]
-\frametitle{Map-reduce}
+%% \begin{lstlisting}[frame=single]
+%% def reducer($subdetector$, $residuals$):
+%%     numer = 0
+%%     denom = 0
+%%     for $residual$ in $residuals$:
+%%         numer = numer + $residual$
+%%         denom = denom + 1
+%%     >move>($subdetector$, numer/denom)  # shift by residual mean
+%% \end{lstlisting}
 
-Hadoop executes two sets of independent, identical processors:
-\begin{itemize}
-\item Mappers, which transform each input to a $\langle$key, value$\rangle$ pair.
-\item Reducers, each operates on all values that have a given key.
-\end{itemize}
+%% Map-reduce can be applied to {\it one iteration} of alignment or calibration.
+%% \end{frame}
 
-\vspace{-0.1 cm}
-\begin{columns}
-\column{0.5\linewidth}
-\begin{lstlisting}[frame=single]
-def mapper($webpage$):
-  for $word$ in $webpage$.split():
-    yield ($word$, $webpage$)
-$$
-\end{lstlisting}
-\column{0.58\linewidth}
-\begin{lstlisting}[frame=single]
-def reducer($word$, $webpages$):
-  searchIndex[$word$] = {}
-  for $webpage$ in $webpages$:
-    searchIndex[$word$].add($webpage$)
-\end{lstlisting}
-\end{columns}
+%% \begin{frame}[fragile]
+%% \frametitle{Alignment example in Spark}
 
-The system groups data by key in an optimized way (independent partial sorts followed by merge, minimizing network bandwidth).
+%% \begin{lstlisting}
+%% @case class Ratio(numer, denom):
+%%     def add(self, other):
+%%         return >Ratio>(self.numer + other.numer,
+%%                      self.denom + other.denom)
+%%     def value(self):
+%%         return self.numer / self.denom
 
-\vspace{0.2 cm}
-\mbox{ } \hfill \includegraphics[width=0.6\linewidth]{mapreduce-diagram-by-ibm.png} \hfill \mbox{ }
-\end{frame}
+%% def makePair($track$, $hit$):
+%%     key = $hit$.subdetector()
+%%     residual = $track$.projection($hit$) - $hit$.pos()
+%%     return (key, >Ratio>(residual, 1))
+%% \end{lstlisting}
 
-\begin{frame}[fragile]
-\frametitle{Potential application in physics}
+%% \begin{lstlisting}[frame=single]
+%% $tracks$.cache()   # tells Spark to keep tracks in memory
 
-Most physics analyses apply the same function to all \mbox{events independently.\hspace{-1 cm}}
+%% for $iteration$ in range(100):
+%%     keyValuePairs =
+%%         $tracks$.flatMap(lambda $track$: $track$.hits.map(
+%%                          lambda $hit$: >makePair>($track$, $hit$)))
 
-However, alignment and calibration are more tightly coupled:
-\begin{itemize}
-\item Alignment residuals must be re-indexed from tracks to subdetectors.
-\item Calibration responses must be re-indexed from $\pi^0$s to subdetectors.
-\end{itemize}
+%%     corrections =
+%%         keyValuePairs.reduceByKey(lambda r1, r2: r1.>add>(r2))
+%%                      .mapValues(lambda r: r.>value>())
 
-\begin{lstlisting}[frame=single]
-def mapper($event$):
-    for $track$ in $event$:
-        for $hit$ in $track$:
-            key = $hit$.subdetector()
-            residual = $track$.projection($hit$) - $hit$.pos()
-            yield (key, residual)
-\end{lstlisting}
-
-\begin{lstlisting}[frame=single]
-def reducer($subdetector$, $residuals$):
-    numer = 0
-    denom = 0
-    for $residual$ in $residuals$:
-        numer = numer + $residual$
-        denom = denom + 1
-    >move>($subdetector$, numer/denom)  # shift by residual mean
-\end{lstlisting}
-
-Map-reduce can be applied to {\it one iteration} of alignment or calibration.
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Alignment example in Spark}
-
-\begin{lstlisting}
-@case class Ratio(numer, denom):
-    def add(self, other):
-        return >Ratio>(self.numer + other.numer,
-                     self.denom + other.denom)
-    def value(self):
-        return self.numer / self.denom
-
-def makePair($track$, $hit$):
-    key = $hit$.subdetector()
-    residual = $track$.projection($hit$) - $hit$.pos()
-    return (key, >Ratio>(residual, 1))
-\end{lstlisting}
-
-\begin{lstlisting}[frame=single]
-$tracks$.cache()   # tells Spark to keep tracks in memory
-
-for $iteration$ in range(100):
-    keyValuePairs =
-        $tracks$.flatMap(lambda $track$: $track$.hits.map(
-                         lambda $hit$: >makePair>($track$, $hit$)))
-
-    corrections =
-        keyValuePairs.reduceByKey(lambda r1, r2: r1.>add>(r2))
-                     .mapValues(lambda r: r.>value>())
-
-    corrections.foreach(>move>)
-\end{lstlisting}
-\end{frame}
+%%     corrections.foreach(>move>)
+%% \end{lstlisting}
+%% \end{frame}
 
 %% \begin{frame}
 %% \frametitle{Language choice}
@@ -224,267 +172,288 @@ for $iteration$ in range(100):
 %% \end{tabular}}
 %% \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Immutable data}
+%% \begin{frame}[fragile]
+%% \frametitle{Immutable data}
 
-Another trend is the restriction to immutable data: variables that don't vary and data structures that can only be replaced, not changed.
+%% Another trend is the restriction to immutable data: variables that don't vary and data structures that can only be replaced, not changed.
 
-\vspace{0.5 cm}
-\begin{columns}
-\column{0.4\linewidth}
-Mutable variable:
+%% \vspace{0.5 cm}
+%% \begin{columns}
+%% \column{0.4\linewidth}
+%% Mutable variable:
 
-\begin{lstlisting}[frame=single]
-result = 0
-for i in range(10):
-  result = result + i
->>
->>
->>
-\end{lstlisting}
+%% \begin{lstlisting}[frame=single]
+%% result = 0
+%% for i in range(10):
+%%   result = result + i
+%% >>
+%% >>
+%% >>
+%% \end{lstlisting}
 
-\vspace{0.3 cm}
-Mutable data structure:
+%% \vspace{0.3 cm}
+%% Mutable data structure:
 
-\begin{lstlisting}[frame=single]
-result = []
-for i in range(10):
-  result.>append>(i)
->>
->>
->>
-\end{lstlisting}
+%% \begin{lstlisting}[frame=single]
+%% result = []
+%% for i in range(10):
+%%   result.>append>(i)
+%% >>
+%% >>
+%% >>
+%% \end{lstlisting}
 
-\column{0.5\linewidth}
-Immutable variable:
+%% \column{0.5\linewidth}
+%% Immutable variable:
 
-\begin{lstlisting}[frame=single]
-def add(i):
-  if i < 10:
-    return i + >add>(i+1)
-  else:
-    return 0
-result = >add>(0)
-\end{lstlisting}
+%% \begin{lstlisting}[frame=single]
+%% def add(i):
+%%   if i < 10:
+%%     return i + >add>(i+1)
+%%   else:
+%%     return 0
+%% result = >add>(0)
+%% \end{lstlisting}
 
-\vspace{0.3 cm}
-Immutable data structure:
+%% \vspace{0.3 cm}
+%% Immutable data structure:
 
-\begin{lstlisting}[frame=single]
-def appended(i):
-  if i < 10:
-    return [i] + >appended>(i+1)
-  else:
-    return []
-result = >appended>(0)
-\end{lstlisting}
-\end{columns}
-\end{frame}
+%% \begin{lstlisting}[frame=single]
+%% def appended(i):
+%%   if i < 10:
+%%     return [i] + >appended>(i+1)
+%%   else:
+%%     return []
+%% result = >appended>(0)
+%% \end{lstlisting}
+%% \end{columns}
+%% \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Immutable data}
+%% \begin{frame}[fragile]
+%% \frametitle{Immutable data}
 
-Why impose this limitation? Because calculations are distributed.
+%% Why impose this limitation? Because calculations are distributed.
 
-\begin{itemize}
-\item It is extremely difficult to maintain consistent values for mutable variables across computers in a network (CAP theorem).
-\item Multiple threads in the same computer acting on a shared variable can easily corrupt it.
-\end{itemize}
+%% \begin{itemize}
+%% \item It is extremely difficult to maintain consistent values for mutable variables across computers in a network (CAP theorem).
+%% \item Multiple threads in the same computer acting on a shared variable can easily corrupt it.
+%% \end{itemize}
 
-\vspace{0.75 cm}
-Example: concurrent access to a mutable counter.
+%% \vspace{0.75 cm}
+%% Example: concurrent access to a mutable counter.
 
-\begin{lstlisting}
-def updateCounter():
-    # step 1
-    currentValue = getCounterValue()
-    # step 2
-    newValue = currentValue + 1
-    # step 3
-    setCounterValue(newValue)
-\end{lstlisting}
+%% \begin{lstlisting}
+%% def updateCounter():
+%%     # step 1
+%%     currentValue = getCounterValue()
+%%     # step 2
+%%     newValue = currentValue + 1
+%%     # step 3
+%%     setCounterValue(newValue)
+%% \end{lstlisting}
 
-\vspace{-4.5 cm}
-\hfill \includegraphics[width=0.23\linewidth]{time_mutable.png}
-\end{frame}
+%% \vspace{-4.5 cm}
+%% \hfill \includegraphics[width=0.23\linewidth]{time_mutable.png}
+%% \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Monoids for combining results}
+%% \begin{frame}[fragile]
+%% \frametitle{Monoids for combining results}
 
-A monoid is a group without inverses:
-\begin{itemize}
-\item an identity: $0$ for which $a + 0 = a$
-\item an associative operator: $a + (b + c) = (a + b) + c$
-\end{itemize}
+%% A monoid is a group without inverses:
+%% \begin{itemize}
+%% \item an identity: $0$ for which $a + 0 = a$
+%% \item an associative operator: $a + (b + c) = (a + b) + c$
+%% \end{itemize}
 
-\vspace{0.2 cm}
-\mbox{ } \hfill \includegraphics[width=0.7\linewidth]{monoids.png} \hfill \mbox{ }
+%% \vspace{0.2 cm}
+%% \mbox{ } \hfill \includegraphics[width=0.7\linewidth]{monoids.png} \hfill \mbox{ }
 
-\vspace{0.2 cm}
-\begin{lstlisting}
-@case class Ratio(numer, denom):
-    def add(self, other):
-        return >Ratio>(self.numer + other.numer,
-                     self.denom + other.denom)
-    def value(self):
-        return self.numer / self.denom
-\end{lstlisting}
-\end{frame}
+%% \vspace{0.2 cm}
+%% \begin{lstlisting}
+%% @case class Ratio(numer, denom):
+%%     def add(self, other):
+%%         return >Ratio>(self.numer + other.numer,
+%%                      self.denom + other.denom)
+%%     def value(self):
+%%         return self.numer / self.denom
+%% \end{lstlisting}
+%% \end{frame}
 
-\begin{frame}{Language choices for projects I was involved in}
-\begin{itemize}
-\item Credit card company: SAS and Python ({\it pure} Python, not even Numpy).
+%% \begin{frame}{Language choices for projects I was involved in}
+%% \begin{itemize}
+%% \item Credit card company: SAS and Python ({\it pure} Python, not even Numpy).
 
-\item Web advertising start-up: Python.
+%% \item Web advertising start-up: Python.
 
-\item NASA (open source Project Matsu): Java simply because it was a new project using Hadoop and HBase. I think they ordinarily use C++ for image processing.
+%% \item NASA (open source Project Matsu): Java simply because it was a new project using Hadoop and HBase. I think they ordinarily use C++ for image processing.
 
-\item Monitoring auto traffic: real-time analysis in Storm (which is in Clojure, a JVM language, but I wrote my code in Scala).
+%% \item Monitoring auto traffic: real-time analysis in Storm (which is in Clojure, a JVM language, but I wrote my code in Scala).
 
-\item Auto insurance: SQL over Hadoop, using Hive and Pig. User-defined functions were in Java because Hive and Pig (and Hadoop) are Java.
+%% \item Auto insurance: SQL over Hadoop, using Hive and Pig. User-defined functions were in Java because Hive and Pig (and Hadoop) are Java.
 
-\item Military project: extremely Java-centric.
+%% \item Military project: extremely Java-centric.
 
-\item Data science start-up: most data analyses in R, a little in Python, but the production data pipeline was strictly Java.
-\end{itemize}
-\end{frame}
+%% \item Data science start-up: most data analyses in R, a little in Python, but the production data pipeline was strictly Java.
+%% \end{itemize}
+%% \end{frame}
 
-\begin{frame}{Language choice}
-Based on Google searches for language + ``tutorial'' (log scale).
+%% \begin{frame}{Language choice}
+%% Based on Google searches for language + ``tutorial'' (log scale).
 
-\includegraphics[width=\linewidth]{language_trends.png}
-\end{frame}
+%% \includegraphics[width=\linewidth]{language_trends.png}
+%% \end{frame}
 
-\begin{frame}{Major frameworks}
-\begin{block}{Apache Hadoop}
-Performs map-reduce calculations. Used as a foundation for other big data frameworks because of\ldots
-\begin{itemize}
-\item the HDFS distributed filesystem (even variants like MapR, which don't use HDFS, provide an HDFS API),
-\item suite of InputFormats that split files by logical records,
-\item ZooKeeper, which coordinates job configuration and synchronization for any service across a cluster.
-\end{itemize}
-\end{block}
+%% \begin{frame}{Major frameworks}
+%% \begin{block}{Apache Hadoop}
+%% Performs map-reduce calculations. Used as a foundation for other big data frameworks because of\ldots
+%% \begin{itemize}
+%% \item the HDFS distributed filesystem (even variants like MapR, which don't use HDFS, provide an HDFS API),
+%% \item suite of InputFormats that split files by logical records,
+%% \item ZooKeeper, which coordinates job configuration and synchronization for any service across a cluster.
+%% \end{itemize}
+%% \end{block}
 
-\begin{block}{Apache Spark}
-Generalizes from map-reduce to arbitrary pipelines, optimized for iterative procedures, with an interactive prompt. May be used on any cluster manager, but usually Hadoop.
-\begin{itemize}
-\item User interfaces: native Scala, Java, Python (through sockets), and R (through pipes).
-\end{itemize}
-\end{block}
-\end{frame}
+%% \begin{block}{Apache Spark}
+%% Generalizes from map-reduce to arbitrary pipelines, optimized for iterative procedures, with an interactive prompt. May be used on any cluster manager, but usually Hadoop.
+%% \begin{itemize}
+%% \item User interfaces: native Scala, Java, Python (through sockets), and R (through pipes).
+%% \end{itemize}
+%% \end{block}
+%% \end{frame}
 
-\begin{frame}{Major frameworks}
-\textcolor{darkblue}{Google Trends result}
+%% \begin{frame}{Major frameworks}
+%% \textcolor{darkblue}{Google Trends result}
 
-(frequency of use as a search term, in ``software'' context)
+%% (frequency of use as a search term, in ``software'' context)
 
-\includegraphics[width=\linewidth]{trends.png}
-\end{frame}
+%% \includegraphics[width=\linewidth]{trends.png}
+%% \end{frame}
 
-\begin{frame}{Generic data formats}
+%% \begin{frame}{Generic data formats}
 
-It's also not uncommon to mix file formats and use a lot of text-based formats. Perhaps 70\% of what I saw was JSON.
+%% It's also not uncommon to mix file formats and use a lot of text-based formats. Perhaps 70\% of what I saw was JSON.
 
-\begin{description}
-\item[CSV] table of primitives: numbers, booleans, strings (text).
-\item[JSON] arrays and maps of primitives (text).
-\item[XML] structures with an optional schema (text).
-\item[Apache Avro] JSON-like binary format with algebraic data types (arrays, maps, records, and unions of primitives). Similar to \textcolor{darkblue}{Thrift} and \textcolor{darkblue}{Protocol buffers}.
-\item[Parquet] similar to Avro, but stored column-wise for speed. Similar to \textcolor{darkblue}{ORC}, Hive's format for SQL tables.
-\item[Sequence files] structured container of arbitrary binary blobs intended as splitting hints for Hadoop.
-\item[Intermediate serialization in Hadoop and Spark] using native Java serialization, Kryo, and Hadoop Writables.
-\item[Python pickle files] for persisting Python objects.
-\end{description}
+%% \begin{description}
+%% \item[CSV] table of primitives: numbers, booleans, strings (text).
+%% \item[JSON] arrays and maps of primitives (text).
+%% \item[XML] structures with an optional schema (text).
+%% \item[Apache Avro] JSON-like binary format with algebraic data types (arrays, maps, records, and unions of primitives). Similar to \textcolor{darkblue}{Thrift} and \textcolor{darkblue}{Protocol buffers}.
+%% \item[Parquet] similar to Avro, but stored column-wise for speed. Similar to \textcolor{darkblue}{ORC}, Hive's format for SQL tables.
+%% \item[Sequence files] structured container of arbitrary binary blobs intended as splitting hints for Hadoop.
+%% \item[Intermediate serialization in Hadoop and Spark] using native Java serialization, Kryo, and Hadoop Writables.
+%% \item[Python pickle files] for persisting Python objects.
+%% \end{description}
 
-\ldots and many application-specific formats.
-\end{frame}
+%% \ldots and many application-specific formats.
+%% \end{frame}
 
-\begin{frame}[fragile]{Spark's functional primitives in \only<1>{C++}\only<2>{Scala} type syntax}
-\small
-\begin{onlyenv}<1>
-\begin{verbatim}
-iterator<X> filter(iterator<X>, function<bool(X)>);
-iterator<Y> map(iterator<X>, function<Y(X)>);
-iterator<Y> flatten(iterator<iterator<Y>>);
-iterator<Y> flatMap(iterator<X>, function<iterator<Y>(X)>);
+%% \begin{frame}[fragile]{Spark's functional primitives in \only<1>{C++}\only<2>{Scala} type syntax}
+%% \small
+%% \begin{onlyenv}<1>
+%% \begin{verbatim}
+%% iterator<X> filter(iterator<X>, function<bool(X)>);
+%% iterator<Y> map(iterator<X>, function<Y(X)>);
+%% iterator<Y> flatten(iterator<iterator<Y>>);
+%% iterator<Y> flatMap(iterator<X>, function<iterator<Y>(X)>);
 
-Y reduce(iterator<Y>, function<Y(Y,Y)>);      // sum, max, etc.
-Z aggregate(iterator<Y>, Z, function<Z(Y,Z)>);   // more general
+%% Y reduce(iterator<Y>, function<Y(Y,Y)>);      // sum, max, etc.
+%% Z aggregate(iterator<Y>, Z, function<Z(Y,Z)>);   // more general
 
-map<K,array<V>> groupByKey(iterator<pair<K,V>>); // like SQL's
+%% map<K,array<V>> groupByKey(iterator<pair<K,V>>); // like SQL's
 
-map<K,V> reduceByKey(iterator<pair<K,V>>,     // input data
-                     function<V(V,V)>);       // merge
+%% map<K,V> reduceByKey(iterator<pair<K,V>>,     // input data
+%%                      function<V(V,V)>);       // merge
 
-map<K,Z> aggregateByKey(iterator<pair<K,V>>,  // input data
-                        Z,                    // starting value
-                        function<Z(V,Z)>,     // increment
-                        function<Z(Z,Z)>);    // combine
-\end{verbatim}
-\end{onlyenv}
-\begin{onlyenv}<2>
-\begin{verbatim}
-def filter(in: Iterator[X], f: X => Boolean): Iterator[X]
-def map(in: Iterator[X], f: X => Y): Iterator[Y]
-def flatten(in: Iterator[Iterator[Y]]): Iterator[Y]
-def flatMap(in: Iterator[X], f: X => Iterator[Y]): Iterator[Y]
+%% map<K,Z> aggregateByKey(iterator<pair<K,V>>,  // input data
+%%                         Z,                    // starting value
+%%                         function<Z(V,Z)>,     // increment
+%%                         function<Z(Z,Z)>);    // combine
+%% \end{verbatim}
+%% \end{onlyenv}
+%% \begin{onlyenv}<2>
+%% \begin{verbatim}
+%% def filter(in: Iterator[X], f: X => Boolean): Iterator[X]
+%% def map(in: Iterator[X], f: X => Y): Iterator[Y]
+%% def flatten(in: Iterator[Iterator[Y]]): Iterator[Y]
+%% def flatMap(in: Iterator[X], f: X => Iterator[Y]): Iterator[Y]
 
-def reduce(in: Iterator[Y], f: (Y,Y) => Y): Y
-def aggregate(in: Iterator[Y], zero: Z, f: (Y,Z) => Z): Z
+%% def reduce(in: Iterator[Y], f: (Y,Y) => Y): Y
+%% def aggregate(in: Iterator[Y], zero: Z, f: (Y,Z) => Z): Z
 
-def groupByKey(in: Iterator[(K,V)]): Map[K,Seq[V]]
+%% def groupByKey(in: Iterator[(K,V)]): Map[K,Seq[V]]
 
-def reduceByKey(in: Iterator[(K,V)],
-                merge: (V,V) => V): Map[K,V]
+%% def reduceByKey(in: Iterator[(K,V)],
+%%                 merge: (V,V) => V): Map[K,V]
 
-def aggregateByKey(in: Iterator[(K,V)],
-                   zero: Z,
-                   incr: (V,Z) => Z,
-                   comb: (Z,Z) => Z): Map[K,Z]
-\end{verbatim}
-\end{onlyenv}
+%% def aggregateByKey(in: Iterator[(K,V)],
+%%                    zero: Z,
+%%                    incr: (V,Z) => Z,
+%%                    comb: (Z,Z) => Z): Map[K,Z]
+%% \end{verbatim}
+%% \end{onlyenv}
 
-\normalsize
-Hadoop's ``mappers'' are actually {\tt flatMap} (which includes the possibility of filtering) and its ``reducers'' are {\tt aggregateByKey}.
-\end{frame}
+%% \normalsize
+%% Hadoop's ``mappers'' are actually {\tt flatMap} (which includes the possibility of filtering) and its ``reducers'' are {\tt aggregateByKey}.
+%% \end{frame}
 
-\begin{frame}[fragile]{Example of using primitives}
-Suppose we want to fill histograms of $p_T$ for tracks with {\tt fValid} from events with {\tt fTemperature > 20}, with one histogram for each distinct combination of {\tt fTriggerBits}.
+%% \begin{frame}[fragile]{Example of using primitives}
+%% Suppose we want to fill histograms of $p_T$ for tracks with {\tt fValid} from events with {\tt fTemperature > 20}, with one histogram for each distinct combination of {\tt fTriggerBits}.
 
-\begin{onlyenv}<1>
-\vspace{0.2 cm}
-On the Spark prompt (Scala syntax):
-\begin{verbatim}
-val dataset = sc.rootRDD[Event]("root://fnal.gov/*.root")
-val histograms =
-  dataset.filter(event => event.fTemperature > 20)
-         .flatMap(event => event.fTracks)
-         .filter(track => track.fValid)
-         .map(t => (t.fTriggerBits,
-                    Math.sqrt(t.fPx*t.fPx + t.fPy*t.fPy)))
-         .aggregateByKey(new TH1F(100, 0, 30))(
-                         (pt, hist) => hist.Fill(pt),
-                         (h1, h2) => h1.Add(h2))
-\end{verbatim}
-\end{onlyenv}
-\begin{onlyenv}<2>
-\vspace{0.2 cm}
-On the PySpark prompt (Python syntax):
-\begin{verbatim}
-dataset = sc.rootRDD("root://fnal.gov/*.root")
-histograms =
-  dataset.filter(lambda event: event.fTemperature > 20)
-         .flatMap(lambda event: event.fTracks)
-         .filter(lambda track: track.fValid)
-         .map(lambda t: (t.fTriggerBits,
-                         math.sqrt(t.fPx**2 + t.fPy**2)))
-         .aggregateByKey(TH1F(100, 0, 30),
-                         lambda pt, hist: hist.Fill(pt),
-                         lambda h1, h2: h1.Add(h2))
-\end{verbatim}
-\end{onlyenv}
+%% \begin{onlyenv}<1>
+%% \vspace{0.2 cm}
+%% On the Spark prompt (Scala syntax):
+%% \begin{verbatim}
+%% val dataset = sc.rootRDD[Event]("root://fnal.gov/*.root")
+%% val histograms =
+%%   dataset.filter(event => event.fTemperature > 20)
+%%          .flatMap(event => event.fTracks)
+%%          .filter(track => track.fValid)
+%%          .map(t => (t.fTriggerBits,
+%%                     Math.sqrt(t.fPx*t.fPx + t.fPy*t.fPy)))
+%%          .aggregateByKey(new TH1F(100, 0, 30))(
+%%                          (pt, hist) => hist.Fill(pt),
+%%                          (h1, h2) => h1.Add(h2))
+%% \end{verbatim}
+%% \end{onlyenv}
+%% \begin{onlyenv}<2>
+%% \vspace{0.2 cm}
+%% On the PySpark prompt (Python syntax):
+%% \begin{verbatim}
+%% dataset = sc.rootRDD("root://fnal.gov/*.root")
+%% histograms =
+%%   dataset.filter(lambda event: event.fTemperature > 20)
+%%          .flatMap(lambda event: event.fTracks)
+%%          .filter(lambda track: track.fValid)
+%%          .map(lambda t: (t.fTriggerBits,
+%%                          math.sqrt(t.fPx**2 + t.fPy**2)))
+%%          .aggregateByKey(TH1F(100, 0, 30),
+%%                          lambda pt, hist: hist.Fill(pt),
+%%                          lambda h1, h2: h1.Add(h2))
+%% \end{verbatim}
+%% \end{onlyenv}
 
-This process gets distributed over the cluster and returns its result to the user's \only<1>{Spark}\only<2>{PySpark} interactive session.
-\end{frame}
+%% This process gets distributed over the cluster and returns its result to the user's \only<1>{Spark}\only<2>{PySpark} interactive session.
+%% \end{frame}
+
+%% KDNuggets
+%% Hadoop/Big Data Tools
+
+%% Hadoop/Big Data tool usage jumped to 29% among voters, up from 17% in 2014, and 14% in 2013.
+%% This is probably due to availability and low-cost of many cloud-based Big Data tools. Very notable is the jump in Spark share to 11.3%.
+
+%% However, most data analysis is still done on "medium" and small data.
+
+%% Top Hadoop/Big Data tools were
+
+%% Hadoop, 18.4% share (507 votes)
+%% Spark, 11.3% (311)
+%% Hive, 10.2% (282)
+%% SQL on Hadoop tools, 7.2% (198)
+%% Pig, 5.4% (150)
+%% HBase, 4.6% (127)
+%% Other Hadoop/HDFS-based tools, 4.5% (125)
+%% MLlib, 3.3% (91)
+%% Mahout, 2.8% (76)
+%% Datameer, 0.8% (23)
 
 \end{document}
