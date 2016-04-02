@@ -216,7 +216,8 @@ One thing most of these toolkits have in common is that they are written for the
 
 \renewcommand{\arraystretch}{1.0} \begin{tabular}{>{\raggedright}p{0.27\linewidth} >{\raggedright}p{0.35\linewidth} >{\raggedright\arraybackslash}p{0.27\linewidth}}
 \textcolor{darkblue}{C/C++} & \textcolor{darkblue}{JVM (Java, Scala\ldots)} & \textcolor{darkblue}{Python and R} \\
-\vspace{-0.2 cm} Fast, but hard to debug. Mixes data analysis with low-level concerns. & \vspace{-0.2 cm} Type-aware bytecode is moderately fast. Great debugging support. & \vspace{-0.2 cm} Not supposed to be fast: offload heavy work on compiled external packages. Highly dynamic.
+\vspace{-0.2 cm} Fast, but hard to debug. & \vspace{-0.2 cm} Type-aware bytecode is moderately fast. & \vspace{-0.2 cm} Offload heavy work on external packages. \\
+Mixes data analysis with low-level concerns. & Better suited to batch than interactivity. & Great for interactive work.
 \end{tabular}
 \end{frame}
 
