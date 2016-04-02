@@ -322,8 +322,13 @@ chiSqProb.apply(53.8, 50)   // or just chiSqProb(53.8, 50)
 
 \begin{frame}[fragile]{ScaROOT-Reader: iterating over ROOT TTrees}
 
+\vfill
+\fbox{\url{http://github.com/diana-hep/rootconverter}}
 
+\vfill
+Two projects: pure-C++ {\tt root2avro} converter and {\tt ScaROOT-Reader}.
 
+\vfill
 \begin{lstlisting}[language=scala]
 // Define a concrete class for data to go into:
 case class TwoMuon(mass_mumu: Float, px: Float, py: Float, pz: Float) {
