@@ -387,17 +387,17 @@ Also includes a pure-C++ {\tt root2avro} for streaming or bulk file conversion.
 \end{verbatim}
 \end{frame}
 
-\begin{frame}[fragile]{Used in developing analysis}
+\begin{frame}[fragile]{}
+ScaROOT-Reader is being used in a CMS monojet analysis:
 \begin{columns}
 \column{0.6\linewidth}
-Monojet analysis using Spark:
 \begin{itemize}
 \item Oliver Gutsche
 \item Matteo Cremonesi
-\item Cristina Su\'arez (produced plot at right)
+\item Cristina Su\'arez (made plot at right from Bacon-tuple in Spark)
 \end{itemize}
 
-Part of a larger effort to use Spark in HEP:
+Part of a larger Big Data in HEP effort:
 \begin{itemize}
 \item Alexey Svyatkovskiy (Princeton)
 \item Saba Sehrish and Jim Kowalkowski (FNAL Scientific Computing)
@@ -406,9 +406,12 @@ Part of a larger effort to use Spark in HEP:
 \includegraphics[width=\linewidth]{THE_PLOT.png}
 \end{columns}
 
+\vfill
+Producing a distributed TTree iterator in Spark:
+
 \begin{lstlisting}[language=scala]
-val rdd = fileListRDD.flatMap(x => RootTreeIterator[Tree](
-  x.map(_.url), treeLocation, libs, myclasses))
+val rdd = xrootd_url_rdd.flatMap(x => RootTreeIterator[Tree](
+  x.map(_.xrootd_url), tree_location_in_file, libs, my_class_definitions))
 \end{lstlisting}
 \end{frame}
 
