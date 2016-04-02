@@ -325,6 +325,7 @@ chiSqProb.apply(53.8, 50)   // or just chiSqProb(53.8, 50)
 \fbox{\url{http://github.com/diana-hep/rootconverter}}
 
 \vfill
+\begin{minipage}{1.05\linewidth}
 \begin{lstlisting}[language=scala]
 // Define a concrete class for data to go into:
 case class TwoMuon(mass: Float, px: Float, py: Float, pz: Float) {
@@ -342,6 +343,7 @@ while (iterator.hasNext) {
   println(s"mass: ${datum.mass} pt: ${datum.pt}")
 }
 \end{lstlisting}
+\end{minipage}
 
 Also includes a pure-C++ {\tt root2avro} for streaming or bulk file conversion.
 \end{frame}
