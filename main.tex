@@ -390,15 +390,26 @@ Also includes a pure-C++ {\tt root2avro} for streaming or bulk file conversion.
 \begin{frame}[fragile]{Used in developing analysis}
 \begin{columns}
 \column{0.5\linewidth}
-Working with Oliver Gutsche, Matteo Cremonesi, and Cristina Su\'arez to perform a monojet analysis using Apache Spark. This plot came from a skimming job performed in Spark.
+Monojet analysis using Spark:
+\begin{itemize}
+\item Oliver Gutsche
+\item Matteo Cremonesi
+\item Cristina Su\'arez (produced plot at right)
+\end{itemize}
 
-Part of a larger effort including Alexey Svyatkovskiy (Princeton), Saba Sehrish and Jim Kowalkowski (FNAL Scientific Computing).
+Part of a larger effort to use Spark in HEP:
+\begin{itemize}
+\item Alexey Svyatkovskiy (Princeton)
+\item Saba Sehrish and Jim Kowalkowski (FNAL Scientific Computing)
+\end{itemize}
+
 \column{0.5\linewidth}
 \includegraphics[width=\linewidth]{THE_PLOT.png}
 \end{columns}
 
 \begin{lstlisting}[language=scala]
-val rdd = fileListRDD.flatMap(x => RootTreeIterator[Tree](x.map(_.url), treeLocation, libs, myclasses))
+val rdd = fileListRDD.flatMap(x => RootTreeIterator[Tree](
+  x.map(_.url), treeLocation, libs, myclasses))
 \end{lstlisting}
 \end{frame}
 
