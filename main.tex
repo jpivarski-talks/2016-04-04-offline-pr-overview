@@ -320,12 +320,9 @@ chiSqProb.apply(53.8, 50)   // or just chiSqProb(53.8, 50)
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{ROOTConverter: accessing ROOT TTrees}
+\begin{frame}[fragile]{ScaROOT-Reader: accessing ROOT TTrees}
 \vfill
 \fbox{\url{http://github.com/diana-hep/rootconverter}}
-
-\vfill
-Two projects: pure-C++ {\tt root2avro} converter and {\tt ScaROOT-Reader}.
 
 \vfill
 \begin{lstlisting}[language=scala]
@@ -345,6 +342,8 @@ while (iterator.hasNext) {
   println(s"mass: ${datum.mass_mumu} pt: ${datum.pt}")
 }
 \end{lstlisting}
+
+Also includes a pure-C++ {\tt root2avro} for comparisons.
 \end{frame}
 
 \begin{frame}[fragile]{Complex example: Bacon-tuple as an Avro schema}
