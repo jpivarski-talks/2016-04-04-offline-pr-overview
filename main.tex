@@ -411,8 +411,8 @@ Part of a wider Big Data-in-HEP effort:
 \hspace{-0.6 cm}Producing a distributed TTree iterator in Spark:
 
 \begin{lstlisting}[language=scala]
-val rdd = xrootd_url_rdd.flatMap(x => RootTreeIterator[Tree](
-  x.map(_.xrootd_url), tree_location, libs, class_definitions))
+val rdd = xrootd_url_rdd.flatMap(files => RootTreeIterator[Tree](
+  files.map(_.xrootd_url), tree_location, libs, class_definitions))
 
 rdd.map(...).filter(...).reduce(...)
 \end{lstlisting}
