@@ -629,6 +629,7 @@ output =
 \begin{tabular}{p{0.12\linewidth} >{\centering}p{0.08\linewidth} >{\centering}p{0.17\linewidth} >{\centering}p{0.08\linewidth} p{0.4\linewidth}}
 & input & function & output & operation \\\hline
 \textcolor{darkblue}{map} & list of $A$ & $f: A \to B$ & list of $B$ & apply $f$ to each $A$, get a list with the same length \\
+& \multicolumn{4}{l}{\scriptsize a.k.a. ``lapply'' (R), ``SELECT'' (SQL)}
 \textcolor{darkblue}{filter} & list of $A$ & $f: A \to \mbox{boolean}$ & list of $A$ & get a shorter list \\
 \textcolor{darkblue}{flatMap} & list of $A$ & $f: A \to \mbox{list of } B$ & list of $B$ & compose \textcolor{darkblue}{map} and \textcolor{darkblue}{flatten}, get a list of any length
 \end{tabular}
