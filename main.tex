@@ -693,7 +693,7 @@ Ideally, we'd want a ``collection of histograms'' (also a monoid) to pass to \te
 So we make {\tt Pack\_O\_Histograms}, a mapping from string names to histograms, with methods to iterate over its contents, applying {\tt Fill} and {\tt Add} to each.
 
 \vfill
-However, {\tt Pack\_O\_Histograms} is a bit like a meta-histogram, where the string names are the bins of the meta-histogram. Its methods, {\tt FillAll} and {\tt AddAll} satisfy the same monoid rules.
+However, {\tt Pack\_O\_Histograms} is a bit like a meta-histogram, where the string names are the bins of the meta-histogram.
 
 \vfill
 What if a particularly complex analysis wanted packs of {\tt Pack\_O\_Histograms}?
