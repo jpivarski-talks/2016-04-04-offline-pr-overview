@@ -626,11 +626,11 @@ Transforming one data table (ntuple) into another.
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{p{0.12\linewidth} >{\centering}p{0.08\linewidth} >{\centering}p{0.17\linewidth} >{\centering}p{0.08\linewidth} p{0.4\linewidth}}
 & input & function & output & operation \\\hline
-\textcolor{darkblue}{map} & list of $A$ & $f: A \to B$ & list of $B$ & apply $f$ to each $A$, get a list with the same length \\
+\textcolor{darkblue}{map} & table of $A$ & $f: A \to B$ & table of $B$ & apply $f$ to each $A$, get a table with the same length \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. ``lapply'' (R), ``SELECT'' (SQL), list comprehension (Python)} \\
-\textcolor{darkblue}{filter} & list of $A$ & $f: A \to \mbox{boolean}$ & list of $A$ & get a shorter list \\
+\textcolor{darkblue}{filter} & table of $A$ & $f: A \to \mbox{boolean}$ & table of $A$ & get a shorter table \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. single brackets (R), ``WHERE'' (SQL), list comprehension (Python)} \\
-\textcolor{darkblue}{flatMap} & list of $A$ & $f: A \to \mbox{list of } B$ & list of $B$ & compose \textcolor{darkblue}{map} and \textcolor{darkblue}{flatten}, get a list of any length \\
+\textcolor{darkblue}{flatMap} & table of $A$ & $f: A \to \mbox{table of } B$ & table of $B$ & compose \textcolor{darkblue}{map} and \textcolor{darkblue}{flatten}, get a table of any length \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. ``map'' (Hadoop), ``EXPLODE'' (SQL), $>>=$ (Haskell)} \\
 \end{tabular}
 \end{frame}
@@ -643,9 +643,9 @@ Summarizing an ntuple with a counter or a histogram.
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{p{0.12\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.08\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth}}
 & input & function & output & operation \\\hline
-\textcolor{darkblue}{reduce} & list of $A$ & $f: (A, A) \to A$ & single $A$ & apply $f$ to the running sum and one more element \\
-\textcolor{darkblue}{aggregate} & list of $A$, initial value $B$ & $f: (A, B) \to B$ & single value $B$ & accumulate a counter with a different data type from the input \\
-\textcolor{darkblue}{aggregate by key} & list of $\langle K,A \rangle$, initial value $B$ & $f: (A, B) \to B$ & pairs $\langle K,B \rangle$ & aggregate independently for each key \\
+\textcolor{darkblue}{reduce} & table of $A$ & $f: (A, A) \to A$ & single $A$ & apply $f$ to the running sum and one more element \\
+\textcolor{darkblue}{aggregate} & table of $A$, initial value $B$ & $f: (A, B) \to B$ & single value $B$ & accumulate a counter with a different data type from the input \\
+\textcolor{darkblue}{aggregate by key} & table of $\langle K,A \rangle$, initial value $B$ & $f: (A, B) \to B$ & pairs $\langle K,B \rangle$ & aggregate independently for each key \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. ``reduce'' (Hadoop), ``GROUP BY'' (SQL)} \\
 \end{tabular}
 \end{frame}
