@@ -514,22 +514,22 @@ def reducer(word, webpages):
 \begin{frame}[fragile]{Physics application: alignment with tracks}
 
 \begin{lstlisting}[language=python,frame=single]
-def mapper($event$):
-    for $track$ in $event$:
-        for $hit$ in $track$:
-            key = $hit$.subdetector()
-            residual = $track$.projection($hit$) - $hit$.pos()
+def mapper(event):
+    for track in event:
+        for hit in track:
+            key = hit.subdetector()
+            residual = track.projection(hit) - hit.pos()
             yield (key, residual)
 \end{lstlisting}
 
 \begin{lstlisting}[language=python,frame=single]
-def reducer($subdetector$, $residuals$):
+def reducer(subdetector, residuals):
     numer = 0
     denom = 0
-    for $residual$ in $residuals$:
-        numer = numer + $residual$
+    for residual in residuals:
+        numer = numer + residual
         denom = denom + 1
-    >move>($subdetector$, numer/denom)  # shift by residual mean
+    move(subdetector, numer/denom)  # shift by residual mean
 \end{lstlisting}
 
 
