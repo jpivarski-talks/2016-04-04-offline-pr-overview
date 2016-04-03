@@ -594,7 +594,7 @@ Spark caches mapper data in RAM to avoid the cost of re-loading from disk.
 A functional programming style is preferred by data analysts using R (inherited from Scheme) and Spark (inherited from Scala).
 
 \begin{columns}
-\column{0.5\linewidth}
+\column{0.6\linewidth}
 \begin{lstlisting}[language=c,frame=single]
 for (i = 0;  i < nEvents;  i++) {
     event = events(i);
@@ -603,9 +603,10 @@ for (i = 0;  i < nEvents;  i++) {
     add_to_output(calculation(event));
 }
 \end{lstlisting}
-\column{0.5\linewidth}
+\column{0.4\linewidth}
 \begin{lstlisting}[language=python,frame=single]
-events.filter(condition).map(calculation)
+events.filter(condition)
+      .map(calculation)
 \end{lstlisting}
 \end{columns}
 
