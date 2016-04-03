@@ -683,10 +683,12 @@ val parallel_histogram_result =
 \end{lstlisting}
 
 \vfill
+\begin{uncoverenv}<2->
 However, this becomes cumbersome for a large number of histograms: have to maintain three lists of the same histograms.
 
 \vfill
 Ideally, we'd want a ``collection of histograms'' (also a monoid) to pass to \textcolor{darkblue}{aggregateByKey} for Spark to update all at once.
+\end{uncoverenv}
 \end{frame}
 
 
