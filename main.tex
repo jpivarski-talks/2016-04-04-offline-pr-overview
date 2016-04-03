@@ -672,7 +672,7 @@ A histogram is a counter, which obeys monoid rules because
 \item it has an associative binary operation (histogram addition).
 \end{itemize}
 
-It fits very naturally into Spark's \textcolor{aggregateByKey} functional:
+It fits very naturally into Spark's \textcolor{darkblue}{aggregateByKey} functional:
 
 \begin{lstlisting}[language=scala]
 dataset.aggregate(new TH1F(100, 0.0, 50.0))(   // booking
