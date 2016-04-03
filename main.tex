@@ -677,13 +677,15 @@ It fits very naturally into Spark's \textcolor{darkblue}{aggregateByKey} functio
 
 \begin{lstlisting}[language=scala]
 val parallel_histogram_result =
-    dataset.aggregate(new TH1F(100, 0.0, 50.0))(     // booking
-        {(hist, datum) => hist.Fill(datum)},         // filling
-        {(hist1, hist2) => hist1.Add(hist2)})        // combining
+    dataset.aggregate(new TH1F(100, 0.0, 50.0))(   // booking
+        {(hist, datum) => hist.Fill(datum)},       // filling
+        {(hist1, hist2) => hist1.Add(hist2)})      // combining
 \end{lstlisting}
 
 \vfill
 here
+
+
 
 
 \end{frame}
