@@ -621,9 +621,9 @@ output =
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Small family of data primitives}
+\begin{frame}{``Monad'' operations:}
 
-\textcolor{darkblue}{``Monad'' operations:} transforming one ntuple into another.
+Transforming one data table (ntuple) into another.
 
 \vfill
 \renewcommand{\arraystretch}{1.5}
@@ -638,9 +638,9 @@ output =
 \end{tabular}
 \end{frame}
 
-\begin{frame}{Small family of data primitives}
+\begin{frame}{``Monoid'' operations:}
 
-\textcolor{darkblue}{``Monoid'' operations:} summarizing an ntuple with a counter.
+Summarizing an ntuple with a counter or a histogram.
 
 \vfill
 \renewcommand{\arraystretch}{1.5}
@@ -651,9 +651,6 @@ output =
 \textcolor{darkblue}{aggregate by key} & list of $\langle K,A \rangle$, initial value $B$ & $f: (A, B) \to B$ & pairs $\langle K,B \rangle$ & aggregate independently for each key \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. ``reduce'' (Hadoop), ``GROUP BY'' (SQL)} \\
 \end{tabular}
-
-
-
 \end{frame}
 
 
