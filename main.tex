@@ -640,11 +640,11 @@ output =
 
 \begin{frame}{Small family of data primitives}
 
-\textcolor{darkblue}{``Monoid'' operations:} summarizing an ntuple with a counter or a histogram.
+\textcolor{darkblue}{``Monoid'' operations:} summarizing an ntuple with a counter.
 
 \vfill
 \renewcommand{\arraystretch}{2}
-\begin{tabular}{l >{\centering}p{0.12\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.08\linewidth} p{0.4\linewidth}}
+\begin{tabular}{p{0.12\linewidth} >{\centering}p{0.12\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.08\linewidth} p{0.4\linewidth}}
 & input & function & output & operation \\\hline
 \textcolor{darkblue}{reduce} & list of $A$ & $f: (A, A) \to A$ & single $A$ & apply $f$ to the running sum and one more element \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. ``GROUP BY 1'' (SQL)} \\
