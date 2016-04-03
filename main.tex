@@ -661,7 +661,29 @@ Summarizing an ntuple with a counter or a histogram.
 \includegraphics[width=0.7\linewidth]{monoids.png}
 \end{center}
 
-Commutativity is nice, too, because then you don't have to worry about the order in which they're recombined.
+Commutativity is nice, too, because then you don't have to worry about the order in which they're combined.
+\end{frame}
+
+\begin{frame}{Histograms in a functional context}
+
+A histogram is a counter, which obeys monoid rules because
+\begin{itemize}
+\item it has an identity element (empty histogram),
+\item it has an associative binary operation (histogram addition).
+\end{itemize}
+
+It fits very naturally into Spark's \textcolor{aggregateByKey} functional:
+
+\begin{lstlisting}[language=scala]
+dataset.aggregate(new TH1F(100, 0.0, 50.0))(   // booking
+  {(hist, datum) => hist.Fill(datum)},         // filling
+  {(hist1, hist2) => hist1.Add(hist2)})        // combining
+\end{lstlisting}
+
+
+
+
+
 \end{frame}
 
 
