@@ -523,7 +523,7 @@ def mapper(event):
     for track in event:
         for hit in track:
             key = hit.subdetector()
-            residual = track.projection(hit) - hit.pos()
+            residual = track.projection(hit) - hit.position()
             yield (key, residual)
 \end{lstlisting}
 
