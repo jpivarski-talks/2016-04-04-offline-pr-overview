@@ -483,6 +483,8 @@ Require large datasets to be transposed, regrouping distributed data from one lo
 
 \begin{frame}[fragile]{This was Google's problem: solved with map-reduce}
 
+Need to reindex data from words-in-webpages to webpages-with-words.
+
 \begin{columns}
 \column{0.5\linewidth}
 \begin{lstlisting}[language=python,frame=single]
@@ -507,12 +509,15 @@ def reducer(word, webpages):
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.75\linewidth]{mapreduce-diagram-by-ibm.png}
+\includegraphics[width=0.65\linewidth]{mapreduce-diagram-by-ibm.png}
 \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Physics application: alignment with tracks}
 
+Need to reindex data from residuals-on-tracks to residuals-on-subdetectors.
+
+\vfill
 \begin{lstlisting}[language=python,frame=single]
 def mapper(event):
     for track in event:
@@ -532,8 +537,11 @@ def reducer(subdetector, residuals):
     move(subdetector, numer/denom)  # shift by residual mean
 \end{lstlisting}
 
-
-
+\vfill
+\begin{itemize}
+\item Applies broadly to many alignment and calibration tasks (e.g. reindex from energy-in-$pi^0$ to energy-in-crystal).
+\item Currently, detector groups are reimplementing this in custom ways.
+\end{itemize}
 
 \end{frame}
 
