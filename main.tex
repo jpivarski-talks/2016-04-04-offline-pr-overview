@@ -644,7 +644,7 @@ Summarizing an ntuple with a counter or a histogram.
 \begin{tabular}{p{0.12\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.23\linewidth} >{\centering}p{0.08\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth}}
 & input & function(s) & output & operation \\\hline
 \textcolor{darkblue}{reduce} & table of $A$ & $f: (A, A) \to A$ & single $A$ & apply $f$ to the running sum and one more element \\
-\textcolor{darkblue}{aggregate} & table of $A$, initial value $B$ & $f: (A, B) \to B$ $f: (B, B) \to B$ (increment and combine) & single value $B$ & accumulate a counter with a different data type from the input \\
+\textcolor{darkblue}{aggregate} & table of $A$, initial value $B$ (``zero'') & $f: (A, B) \to B$ $f: (B, B) \to B$ (``increment'' and ``combine'') & single value $B$ & accumulate a counter with a different data type from the input \\
 \textcolor{darkblue}{aggregate by key} & table of $\langle K,A \rangle$, initial value $B$ & $f: (A, B) \to B$ $f: (B, B) \to B$ & pairs $\langle K,B \rangle$ & aggregate independently for each key \\
 & \multicolumn{4}{l}{\scriptsize \color{darkgrey} a.k.a. ``reduce'' (Hadoop), ``GROUP BY'' (SQL)} \\
 \end{tabular}
