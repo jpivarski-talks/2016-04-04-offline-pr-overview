@@ -644,7 +644,7 @@ output =
 
 \vfill
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{p{0.12\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.08\linewidth} >{\raggedright}p{0.25\linewidth}}
+\begin{tabular}{p{0.12\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.2\linewidth} >{\centering}p{0.08\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth}}
 & input & function & output & operation \\\hline
 \textcolor{darkblue}{reduce} & list of $A$ & $f: (A, A) \to A$ & single $A$ & apply $f$ to the running sum and one more element \\
 \textcolor{darkblue}{aggregate} & list of $A$, initial value $B$ & $f: (A, B) \to B$ & single value $B$ & accumulate a counter with a different data type from the input \\
