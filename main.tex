@@ -576,20 +576,42 @@ Spark becomes an Apache project and Databricks founded. In 2014, Spark wins reco
 Spark's killer app is {\it iterative fits,} which are often implemented as iterative map-reduce. (Logistic regression shown at right.)
 
 \vspace{0.2 cm}
-Spark can cache mapper data in RAM to avoid the cost of re-loading from disk.
+Spark caches mapper data in RAM to avoid the cost of re-loading from disk.
 \column{0.35\linewidth}
 \includegraphics[width=\linewidth]{spark_time.png}
 \end{columns}
 
 \vfill
 \begin{itemize}
-\item I primarily used Hadoop in industry, but have been working with Spark for the last few weeks.
-\item In addition to the speedup, Spark has many minor conveniences for data analysis: boilerplate becomes one-liners.
+\item I primarily used Hadoop in industry, but have been working with Spark for the last two months.
+\item In addition to the speedup, Spark has many minor conveniences for data analysis.
 \item Spark also generalizes to streams of functional primitives, not limited to map and reduce.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Functional primitives}
+
+A functional programming style is preferred by data analysts using R (inherited from Scheme) and Spark (inherited from Scala).
+
+\begin{columns}
+\column{0.5\linewidth}
+\begin{lstlisting}[language=c,frame=single]
+for (i = 0;  i < nEvents;  i++) {
+    event = events(i);
+    if (condition(event))
+        continue;
+    add_to_output(calculation(event));
+}
+\end{lstlisting}
+\column{0.5\linewidth}
+\begin{lstlisting}[language=python,frame=single]
+events.filter(condition).map(calculation)
+\end{lstlisting}
+\end{columns}
+
+
+
+
 
 \end{frame}
 
