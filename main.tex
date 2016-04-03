@@ -628,7 +628,7 @@ Transforming one data table (ntuple) into another.
 & input & function & output & operation \\\hline
 \textcolor{darkblue}{map} & table of $A$ & $f: A \to B$ & table of $B$ & apply $f$ to each row $A$, get a table of the same number of rows $B$ \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. ``lapply'' (R), ``SELECT'' (SQL), list comprehension (Python)} \\
-\textcolor{darkblue}{filter} & table of $A$ & $f: A \to \mbox{boolean}$ & table of $A$ & get a shorter table \\
+\textcolor{darkblue}{filter} & table of $A$ & $f: A \to \mbox{boolean}$ & table of $A$ & get a shorter table with the same type of rows \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. single brackets (R), ``WHERE'' (SQL), list comprehension (Python)} \\
 \textcolor{darkblue}{flatMap} & table of $A$ & $f: A \to \mbox{table of } B$ & table of $B$ & compose \textcolor{darkblue}{map} and \textcolor{darkblue}{flatten}, get a table of any length \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. ``map'' (Hadoop), ``EXPLODE'' (SQL), $>>=$ (Haskell)} \\
