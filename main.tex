@@ -275,14 +275,15 @@ More specifically: what languages are used for data analytics?
 \vspace{-\baselineskip}
 I have been developing adapters to connect ROOT with the JVM so that we can use Big Data tools in our physics analyses.
 
-\textcolor{darkgrey}{\begin{itemize}
+\textcolor{darkgrey}
+\begin{itemize}
 \item Using JNI so that C++ code and Java run in the same process (no interprocess communication).
 \item Arbitrarily complex ROOT TTrees to include CMSSW objects.
 \item ROOT does file I/O to inherit XRootD abilities.
 \item Scala interface, rather than pure Java, to target Spark.
 \item Scala macros ``compile in'' data type information for speed.
 \item Combining Scala macros with ROOT's Cling interface to create Java interfaces with C++ implementations.
-\end{itemize}}
+\end{itemize}
 \end{block}
 \end{uncoverenv}
 \end{frame}
