@@ -626,7 +626,7 @@ Transforming one data table (ntuple) into another.
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{p{0.12\linewidth} >{\centering}p{0.08\linewidth} >{\centering}p{0.17\linewidth} >{\centering}p{0.08\linewidth} p{0.4\linewidth}}
 & input & function & output & operation \\\hline
-\textcolor{darkblue}{map} & table of $A$ & $f: A \to B$ & table of $B$ & apply $f$ to each row $A$, get a table of the same size \\
+\textcolor{darkblue}{map} & table of $A$ & $f: A \to B$ & table of $B$ & apply $f$ to each row $A$, get a table with as many columns \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. ``lapply'' (R), ``SELECT'' (SQL), list comprehension (Python)} \\
 \textcolor{darkblue}{filter} & table of $A$ & $f: A \to \mbox{boolean}$ & table of $A$ & get a shorter table \\
 & \multicolumn{4}{l}{\scriptsize a.k.a. single brackets (R), ``WHERE'' (SQL), list comprehension (Python)} \\
