@@ -488,7 +488,7 @@ Require large datasets to be transposed, regrouping distributed data from one lo
 def mapper(webpage):
   for word in webpage.split():
     yield (word, webpage)
-
+    
 \end{lstlisting}
 \column{0.58\linewidth}
 \begin{lstlisting}[language=python,frame=single]
