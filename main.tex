@@ -126,7 +126,7 @@ Java for data plumbing and (mostly) Python, R, and SQL for analysis.
 Extensive distributed filtering \\ and data transformations \\ (the ``map'' of map-reduce).
 
 \column{0.5\linewidth}
-Extensive distributed map {\it and} reduce: regrouping data from one attribute to another.
+Extensive distributed map {\it and} reduce: regrouping data from one lookup key to another.
 \end{columns}
 
 \vfill
@@ -444,7 +444,21 @@ rdd.map(...).filter(...).reduce(...)
 \end{uncoverenv}
 \end{frame}
 
+\begin{frame}{Tightly coupled problems}
 
+\begin{block}{Most physics analyses}
+To process one event, you don't need to know about any other events.
+\end{block}
+
+\begin{block}{Most industrial problems}
+Require large datasets to be transposed, regrouping distributed datasets from one lookup key to another.
+\end{block}
+
+
+
+
+
+\end{frame}
 
 
 
