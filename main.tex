@@ -444,20 +444,24 @@ rdd.map(...).filter(...).reduce(...)
 \end{uncoverenv}
 \end{frame}
 
-\begin{frame}{Tightly coupled problems}
+\begin{frame}{}
 
 \begin{block}{Most physics analyses}
 Uncoupled: to process one event, you don't need to know anything about any other events.
 \end{block}
 
 \begin{block}{Most industrial problems}
-Require large datasets to be transposed, regrouping distributed datasets from one lookup key to another.
+Require large datasets to be transposed, regrouping distributed data from one lookup key to another.
 \end{block}
 
-
-
-
-
+\begin{uncoverenv}<2->
+\begin{block}{Example}
+\begin{itemize}
+\item A customer buys diapers online; what other products should you recommend?
+\item Analysis of diaper purchases across all customers reveals a correlation with milk; recommend milk.
+\end{itemize}
+\end{block}
+\end{uncoverenv}
 \end{frame}
 
 
