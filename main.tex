@@ -706,7 +706,7 @@ Instead, consider breaking a histogram down into its fundamental primitives:
 \begin{itemize}
 \item {\tt Counter} just counts.
 \item {\tt MeanRms} accumulates a mean and RMS.
-\item {\tt Binned(f, Counter)} is a standard 1-d histogram with a fill rule $f$. (Declare how it gets filled at booking-time.)
+\item {\tt Binned(f, Counter)} is a standard 1-d histogram with a fill rule $f$. \textcolor{darkgrey}{(Declare how it gets filled at booking-time.)}
 \item {\tt Binned(f, MeanRms)} is a ``profile plot.''
 \item {\tt Binned(f, Binned(g, Counter))} is a standard 2-d histogram with a fill rule $f$ for x and $g$ for y.
 \item {\tt Mapping(Binned(f, Counter))} is a pack of histograms.
