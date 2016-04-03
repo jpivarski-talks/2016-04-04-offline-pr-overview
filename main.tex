@@ -415,6 +415,7 @@ Part of a wider Big Data-in-HEP effort:
 \end{columns}
 
 \vspace{0.5 cm}
+\begin{uncoverenv}<2->
 \hspace{-0.6 cm}Producing a distributed TTree iterator in Spark:
 
 \begin{lstlisting}[language=scala]
@@ -423,13 +424,24 @@ val rdd = file_list.flatMap(files => RootTreeIterator[Tree](
 
 rdd.map(...).filter(...).reduce(...)
 \end{lstlisting}
+\end{uncoverenv}
+\end{frame}
+
+\begin{frame}{}
+
+\hspace{-0.83 cm} \textcolor{darkblue}{\Large So we can run physics events through Big Data tools.}
+
+\vspace{0.3 cm}
+\hspace{-0.83 cm} \textcolor{darkblue}{\Large What does that buy us?}
+
+
+
+
 \end{frame}
 
 
 
 
-
-%% \hspace{-0.83 cm} \textcolor{darkblue}{\Large Overcoming it}
 
 
 
