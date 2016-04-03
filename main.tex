@@ -500,8 +500,15 @@ def reducer(word, webpages):
 \end{lstlisting}
 \end{columns}
 
+\begin{itemize}
+\item Independent mappers transform input to $\langle$key, value$\rangle$ pair.
+\item Each reducer is given {\it all} pairs with a unique key.
+\item Map-reduce framework optimizes the sorting and merging needed to collect unique keys.
+\end{itemize}
 
-
+\begin{center}
+\includegraphics[width=0.75\linewidth]{mapreduce-diagram-by-ibm.png}
+\end{center}
 \end{frame}
 
 
