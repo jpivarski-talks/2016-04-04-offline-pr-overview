@@ -712,13 +712,13 @@ Consider instead breaking histograms down into fundamental primitives:
 \item {\tt Binned(f, MeanRms)} is a ``profile plot.''
 \item {\tt Binned(f, Binned(g, Counter))} is a standard 2-d histogram with a fill rule $f$ for one dimension and $g$ for the other.
 \item {\tt Mapping(Binned(f, Counter))} is a pack of histograms.
-% \item {\tt }
+\item {\tt Conditions([a, b, c], Binned(f, Counter))} is a suite of histograms filled under conditions $a$, $b$, and $c$.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Histograms of histograms are already a common tool}
 
-But currently, the aggregation is built in complex, imperative analysis scripts. Imagine if they could be built from a few fundamental building blocks?
+But currently, the aggregation is built in complex, imperative analysis scripts. Imagine if they could be built from a few small building blocks?
 
 \includegraphics[width=\linewidth]{histograms_of_histograms.png}
 \end{frame}
