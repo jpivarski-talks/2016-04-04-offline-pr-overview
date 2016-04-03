@@ -442,14 +442,14 @@ rdd.map(...).filter(...).reduce(...)
 \end{uncoverenv}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Workflow coupling}
 
 \begin{block}{Most physics analyses}
 Uncoupled: to process one event, you don't need to know anything about any other events.
 \end{block}
 
 \begin{block}{Most industrial problems}
-Require large datasets to be transposed, regrouping distributed data from one lookup key to another.
+Require large datasets to be transposed, regrouping distributed data from one lookup key to another. Tightly coupled.
 \end{block}
 
 \begin{uncoverenv}<2->
