@@ -627,11 +627,11 @@ Transforming one data table (ntuple) into another.
 \begin{tabular}{p{0.12\linewidth} >{\centering}p{0.08\linewidth} >{\centering}p{0.17\linewidth} >{\centering}p{0.08\linewidth} p{0.4\linewidth}}
 & input & function & output & operation \\\hline
 \textcolor{darkblue}{map} & table of $A$ & $f: A \to B$ & table of $B$ & apply $f$ to each row $A$, get a table of the same number of rows $B$ \\
-& \multicolumn{4}{l}{\scriptsize a.k.a. ``lapply'' (R), ``SELECT'' (SQL), list comprehension (Python)} \\
+& \multicolumn{4}{l}{\scriptsize \color{darkgrey} a.k.a. ``lapply'' (R), ``SELECT'' (SQL), list comprehension (Python)} \\
 \textcolor{darkblue}{filter} & table of $A$ & $f: A \to \mbox{boolean}$ & table of $A$ & get a shorter table with the same type of rows \\
-& \multicolumn{4}{l}{\scriptsize a.k.a. single brackets (R), ``WHERE'' (SQL), list comprehension (Python)} \\
+& \multicolumn{4}{l}{\scriptsize \color{darkgrey} a.k.a. single brackets (R), ``WHERE'' (SQL), list comprehension (Python)} \\
 \textcolor{darkblue}{flatMap} & table of $A$ & $f: A \to \mbox{table of } B$ & table of $B$ & compose \textcolor{darkblue}{map} and \textcolor{darkblue}{flatten}, get a table of any length \\
-& \multicolumn{4}{l}{\scriptsize a.k.a. ``map'' (Hadoop), ``EXPLODE'' (SQL), $>>=$ (Haskell)} \\
+& \multicolumn{4}{l}{\scriptsize \color{darkgrey} a.k.a. ``map'' (Hadoop), ``EXPLODE'' (SQL), $>>=$ (Haskell)} \\
 \end{tabular}
 \end{frame}
 
@@ -646,7 +646,7 @@ Summarizing an ntuple with a counter or a histogram.
 \textcolor{darkblue}{reduce} & table of $A$ & $f: (A, A) \to A$ & single $A$ & apply $f$ to the running sum and one more element \\
 \textcolor{darkblue}{aggregate} & table of $A$, initial value $B$ & $f: (A, B) \to B$ & single value $B$ & accumulate a counter with a different data type from the input \\
 \textcolor{darkblue}{aggregate by key} & table of $\langle K,A \rangle$, initial value $B$ & $f: (A, B) \to B$ & pairs $\langle K,B \rangle$ & aggregate independently for each key \\
-& \multicolumn{4}{l}{\scriptsize a.k.a. ``reduce'' (Hadoop), ``GROUP BY'' (SQL)} \\
+& \multicolumn{4}{l}{\scriptsize \color{darkgrey} a.k.a. ``reduce'' (Hadoop), ``GROUP BY'' (SQL)} \\
 \end{tabular}
 \end{frame}
 
